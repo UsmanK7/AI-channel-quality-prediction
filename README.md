@@ -1,218 +1,158 @@
-# AI-Powered Channel Quality Prediction for 5G and Beyond Wireless Networks
+# AI Channel Quality Prediction for 5G and Beyond Wireless Networks
 
-## 🎯 Project Overview
+## 📸 Project Gallery
 
-This project implements an advanced deep learning system for predicting Channel Quality Indicator (CQI) and Signal-to-Noise Ratio (SNR) in 5G and Beyond (B5G) wireless networks. The system uses state-of-the-art neural network architectures to enable intelligent network optimization and resource allocation.
+| CQI Classification Training | CQI Predictions | SNR Predictions | SNR Training History |
+|---|---|---|---|
+| ![CQI Training History](https://github.com/user-attachments/assets/64a6dac4-8fd8-4089-a96f-6c04f5da79f5) | ![CQI Predictions](https://github.com/user-attachments/assets/6e3e5404-c490-48d0-a122-5bf0fee76c86) | ![SNR Predictions](https://github.com/user-attachments/assets/21d4d25f-8533-4c22-8730-21b276d65d19) | ![SNR Training History](https://github.com/user-attachments/assets/a5363c51-922d-4931-94f5-c2fb4e841f1f) |
+| Model convergence and validation accuracy over epochs | Actual vs predicted Channel Quality Indicator values | Signal-to-Noise Ratio regression predictions | Loss function optimization and model learning curves |
 
-## 🔬 Research Focus Areas
+## 📋 Project Overview
 
-This project directly addresses key research challenges in:
-- **5G/6G Network Optimization**: AI-driven channel quality prediction for next-generation wireless systems
-- **Reconfigurable Intelligent Surfaces (RIS)**: Foundation for intelligent reflecting surface optimization
-- **Multi-user MIMO Systems**: Enhanced user scheduling and resource allocation
-- **AI for Signal Processing**: Machine learning approaches to wireless channel modeling
+This project implements advanced deep learning techniques for predicting wireless channel quality in 5G and Beyond (B5G) networks. The system focuses on two critical prediction tasks:
 
-## 🏗️ Project Architecture
+- ✅ **CQI Classification:** Predicting Channel Quality Indicator (1-15 scale)
+- ✅ **SNR Regression:** Estimating Signal-to-Noise Ratio in dB
 
-### Core Components
-1. **Synthetic Dataset Generation** (`utils.py`): Realistic 5G channel models using 3GPP standards
-2. **Deep Learning Models** (`model.py`): Multiple architectures (MLP, CNN, Transformer, Ensemble)
-3. **Training Pipeline** (`main.py`): Complete ML workflow with evaluation and visualization
-4. **Advanced Features**: Multi-user scheduling demonstration and feature analysis
+## ✅ Key Features
 
-### Key Features
-- ✅ **Realistic 5G Channel Modeling**: 3GPP TR 38.901 compliant path loss models
-- ✅ **Advanced ML Architectures**: MLP, 1D-CNN, Transformer, and Ensemble models
-- ✅ **Comprehensive Evaluation**: Multiple metrics and visualization tools
-- ✅ **Production Ready**: Professional code structure with full documentation
-- ✅ **Research Applications**: Direct applicability to B5G/6G research
+### 📡 5G/B5G Channel Modeling
+Realistic wireless channel simulation using 3GPP standards and advanced propagation models
 
-## 📊 Dataset Specifications
+### 🧠 Multi-Architecture AI
+MLP, CNN, Transformer, and Ensemble models for comprehensive prediction capabilities
 
-### Input Features (8 dimensions)
-- **User Speed** (km/h): Mobility patterns from pedestrian to high-speed
-- **Distance to BS** (m): Cell coverage analysis (10m - 5km)
-- **Frequency Band** (GHz): Sub-6GHz and mmWave bands
-- **LOS/NLOS**: Line-of-sight propagation conditions
-- **Power Level** (dBm): Base station transmission power
-- **Number of Users**: Multi-user interference modeling
-- **Environment Type**: Urban, suburban, rural scenarios
-- **Interference Level** (dB): Co-channel and adjacent channel interference
+### 📊 Advanced Analytics
+Comprehensive visualization tools and performance analysis with production-ready code
 
-### Target Variables
-- **CQI Prediction**: 15-class classification (CQI 1-15)
-- **SNR Prediction**: Continuous regression (-10 to 30 dB)
+### 👥 Dynamic Scheduling
+Real-time user scheduling demonstration and network optimization capabilities
+
+## 🛠 Technical Specifications
+
+| Specification | Details |
+|---|---|
+| **Programming Language** | Python 3.8+ |
+| **Deep Learning Framework** | TensorFlow/Keras 2.x |
+| **Dataset Size** | 15,000 synthetic samples |
+| **Features** | 8 wireless network parameters |
+| **Models** | 4 different architectures |
+| **Evaluation Metrics** | Accuracy, MAE, MSE, R² |
+
+## 🏗 System Architecture
+
+<img width="2840" height="580" alt="Screenshot 2025-07-23 151135" src="https://github.com/user-attachments/assets/cb50db19-9a07-4176-987a-40d859ce1743" />
+
+
+### Project Structure
+
+```
+project/
+├── main.py                 # Main execution script
+├── model.py               # Neural network architectures
+├── utils.py               # Data generation & visualization
+├── dataset.csv            # Generated synthetic dataset
+└── results/               # Output directory
+    ├── models/            # Trained model files
+    ├── plots/             # Visualization outputs
+    └── metrics/           # Performance results
+```
+
+## 📊 Dataset Generation
+
+### Wireless Channel Modeling
+
+Implementation of state-of-the-art wireless propagation models based on 3GPP TR 38.901 standards:
+
+#### Path Loss Models:
+
+**Urban Micro (UMi) LOS:**
+```
+PL = 32.4 + 21×log₁₀(d) + 20×log₁₀(fc) [d ≤ 1000m]
+PL = 32.4 + 40×log₁₀(d) + 20×log₁₀(fc) - 9.5 [d > 1000m]
+```
+
+**Urban Micro (UMi) NLOS:**
+```
+PL = 35.3×log₁₀(d) + 22.4 + 21.3×log₁₀(fc) - 0.3×h_UT
+```
+
+### Feature Engineering
+
+| Feature | Range | Distribution |
+|---|---|---|
+| User Speed | 0-300 km/h | Gamma/Normal |
+| Distance to BS | 10-5000 m | Exponential |
+| Frequency | 0.7-60 GHz | Discrete |
+| LOS/NLOS | Categorical | Bernoulli |
+| Power Level | 20-50 dBm | Normal |
+| Interference | -105 to -70 dB | Function |
 
 ### Dataset Statistics
-- **Size**: 15,000 samples with realistic feature distributions
-- **Quality**: Correlated shadow fading, 3GPP-compliant path loss
-- **Diversity**: Multiple environments, mobility patterns, and network conditions
 
-## 🧠 Model Architectures
+| Metric | Value |
+|---|---|
+| **Total Samples** | 15,000 |
+| **Input Features** | 8 |
+| **Train/Test Split** | 80/20 |
+
+## 🤖 Model Architectures
 
 ### 1. Multi-Layer Perceptron (MLP)
-```
-Input (8) → Dense(256) → BN → Dropout → Dense(128) → BN → Dropout 
-→ Dense(64) + Skip Connection → BN → Dropout → Dense(32) → Output
-```
-- **Best for**: Direct feature processing, fast inference
-- **Features**: Batch normalization, residual connections, adaptive learning
+**Purpose:** CQI Classification
+<img width="785" height="1117" alt="1" src="https://github.com/user-attachments/assets/6c3d03a3-c030-4fff-a681-5f42a592ce9f" />
+
+
+**Features:**
+- Residual Connections
+- Batch Normalization
+- AdamW Optimizer
 
 ### 2. 1D Convolutional Neural Network
-```
-Input (8,1) → Conv1D(64,3) → BN → Dropout → Conv1D(32,3) → BN 
-→ Conv1D(16,3,dilation=2) → GlobalPooling → Dense(64) → Output
-```
-- **Best for**: Pattern recognition in wireless features
-- **Features**: Dilated convolutions, global pooling, feature extraction
+**Purpose:** SNR Regression
+<img width="602" height="1110" alt="2" src="https://github.com/user-attachments/assets/e585828c-736f-409c-82bf-6fd4ce6c99c0" />
 
-### 3. Transformer Architecture (Advanced)
-```
-Input → Embedding → Multi-Head Attention → Add&Norm → FFN 
-→ Add&Norm → Global Pooling → Output
-```
-- **Best for**: Complex feature interactions, interpretability
-- **Features**: Self-attention, position encoding, attention weights
+
+**Features:**
+- Dilated Convolutions
+- Global Pooling
+- Huber Loss
+
+### 3. Transformer Model
+**Purpose:** Advanced Architecture
+<img width="487" height="1077" alt="3" src="https://github.com/user-attachments/assets/fd0eae2d-1647-4bae-87f8-d1900c341356" />
+
+
+**Features:**
+- Self-Attention
+- Layer Normalization
+- Positional Encoding
 
 ### 4. Ensemble Model
-- **Combines**: MLP + CNN predictions with learned weighting
-- **Best for**: Maximum accuracy, robust predictions
+**Purpose:** Combined Approach
+<img width="632" height="985" alt="4" src="https://github.com/user-attachments/assets/186e116e-7916-4314-8cf6-c23105fa2008" />
 
-## 🚀 Quick Start
 
-### Installation
-```bash
-# Clone or download project files
-# Install dependencies
-pip install -r requirements.txt
-```
+**Features:**
+- Dual-Branch
+- Feature Fusion
+- Weighted Outputs
 
-### Running the Project
-```bash
-# Execute complete pipeline
-python main.py
-```
+## 🚀 Getting Started
 
-### Expected Output
-1. **Dataset Generation**: 15,000 samples with 5G channel characteristics
-2. **Model Training**: Dual models for CQI classification and SNR regression
-3. **Performance Metrics**: Accuracy, MAE, MSE, R² scores
-4. **Visualizations**: Training curves, prediction plots, feature analysis
-5. **Bonus Demo**: Multi-user scheduling simulation
+1. Clone this repository
+2. Install dependencies: `pip install -r requirements.txt`
+3. Run the main script: `python main.py`
+4. Check results in the `results/` directory
 
-## 📈 Performance Benchmarks
+## 📈 Performance Metrics
 
-### CQI Classification Model (MLP)
-- **Accuracy**: ~85-90%
-- **MAE**: <1.5 CQI levels
-- **Architecture**: Optimized for wireless channel classification
+The models are evaluated using comprehensive metrics including accuracy for classification tasks and MAE, MSE, R² for regression tasks.
 
-### SNR Regression Model (1D-CNN)
-- **R² Score**: >0.85
-- **MAE**: <2.5 dB
-- **RMSE**: <3.5 dB
-- **Architecture**: Convolutional feature extraction for continuous prediction
+## 🤝 Contributing
 
-## 🔍 Research Applications
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-### 1. Next-Generation Network Optimization
-- **Use Case**: Proactive resource allocation in 6G networks
-- **Benefit**: Reduced latency, improved QoS
+## 📄 License
 
-### 2. Intelligent Reflecting Surfaces (RIS)
-- **Use Case**: Optimal phase configuration based on channel prediction
-- **Benefit**: Enhanced coverage, energy efficiency
-
-### 3. Multi-User MIMO Systems
-- **Use Case**: User scheduling and beamforming optimization
-- **Benefit**: Increased system capacity, fairness
-
-### 4. Edge Computing Integration
-- **Use Case**: Real-time channel quality prediction at network edge
-- **Benefit**: Ultra-low latency applications
-
-## 📁 Project Structure
-
-```
-wireless_ai_project/
-├── main.py                 # Main execution script
-├── model.py                # Neural network architectures
-├── utils.py                # Data generation and visualization
-├── requirements.txt        # Python dependencies
-├── README.md              # This file
-├── dataset.csv            # Generated wireless dataset
-└── results/               # Training outputs and visualizations
-    ├── cqi_classification_model.h5
-    ├── snr_regression_model.h5
-    ├── feature_scaler.pkl
-    ├── label_encoders.pkl
-    └── *.png              # Visualization plots
-```
-
-## 🎓 Academic Relevance
-
-### For Wireless Communications Research Labs
-This project demonstrates:
-- **Advanced ML/DL Skills**: Multiple architectures, proper evaluation
-- **Domain Knowledge**: 5G/B5G standards, channel modeling
-- **Research Readiness**: Publication-quality implementation
-- **Innovation Potential**: Foundation for novel research directions
-
-### Publication Opportunities
-- **Conference Submissions**: IEEE GLOBECOM, ICC, WCNC
-- **Journal Articles**: IEEE Trans. on Wireless Communications, Vehicular Technology
-- **Workshop Presentations**: ML4Wireless, AI4Networks
-
-## 🔧 Advanced Features
-
-### 1. Realistic Channel Modeling
-- 3GPP TR 38.901 path loss models
-- Correlated shadow fading
-- Small-scale fading (Rayleigh/Rician)
-- Multi-frequency band support
-
-### 2. Professional ML Pipeline
-- Proper train/validation/test splits
-- Feature normalization and encoding
-- Early stopping and learning rate scheduling
-- Comprehensive model evaluation
-
-### 3. Visualization Suite
-- Training history plots
-- Prediction scatter plots
-- Feature importance analysis
-- Correlation matrix heatmaps
-
-### 4. Multi-User Scheduling Demo
-- Realistic user scenario simulation
-- SNR-based priority scheduling
-- Performance comparison metrics
-
-## 🚀 Future Extensions
-
-### 1. Advanced Architectures
-- **Graph Neural Networks**: For network topology modeling
-- **Recurrent Networks**: For temporal channel prediction
-- **Attention Mechanisms**: For interpretable feature selection
-
-### 2. Real-World Integration
-- **5G Testbed Integration**: Live network data collection
-- **Edge Deployment**: TensorFlow Lite optimization
-- **Cloud Scaling**: Distributed training and inference
-
-### 3. Research Directions
-- **Federated Learning**: Privacy-preserving multi-operator training
-- **Transfer Learning**: Cross-environment model adaptation
-- **Uncertainty Quantification**: Confidence-aware predictions
-
-## 📞 Contact & Collaboration
-
-This project is designed for academic and research purposes. For collaborations, extensions, or questions:
-
-- **Research Focus**: B5G/6G Networks, RIS, Multi-user MIMO, AI for Wireless
-- **Technical Stack**: TensorFlow, Python, Wireless Channel Modeling
-- **Applications**: Network optimization, resource allocation, intelligent systems
-
----
-
-*This project demonstrates advanced machine learning capabilities applied to cutting-edge wireless communications research, suitable for top-tier academic programs and industry research positions.*
+This project is licensed under the MIT License - see the LICENSE file for details.
